@@ -8,7 +8,7 @@ namespace MvcUnitTesting_dotnet8
     {
         public static void Main(string[] args)
         {
-            ActivityAPIClient.Track(StudentID: "S00235207", StudentName: "Eunan Murray", activityName: "Rad302 2025 Week 2 Lab 1", Task: "Running Week 2 App");
+            ActivityAPIClient.Track(StudentID: "S00235207", StudentName: "Eunan Murray", activityName: "Rad302 2025 Week 2 Lab 2", Task: "o Implementing Production Repository Pattern.");
 
             var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +21,14 @@ namespace MvcUnitTesting_dotnet8
             builder.Services.AddScoped<IRepository<Book>, WorkingBookRepository<Book>>();
 
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var _ctx = scope.ServiceProvider.GetRequiredService<BookDbContext>();
+                var hostEnvironment = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
+
+                DbSeeder dbSeeder = new DbSeeder(_ctx, hostEnvironment);
+                dbSeeder.Seed();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -42,6 +50,38 @@ namespace MvcUnitTesting_dotnet8
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+        }
+
+        public class DbSeeder
+        {
+            private readonly BookDbContext _ctx;
+            private readonly IWebHostEnvironment _hosting;
+            private bool disposedValue;
+
+            public DbSeeder(BookDbContext ctx, IWebHostEnvironment hosting)
+            {
+                _ctx = ctx;
+                _hosting = hosting;
+            }
+
+            public void Seed()
+            {
+                _ctx.Database.EnsureCreated();
+
+                if (!_ctx.Books.Any())
+                {
+                    _ctx.Books.AddRange(
+                        new List<Book>()
+                        {
+                            new Book { Genre = "Fiction", Name = "Moby Dick", Price=12.50m },
+                            new Book { Genre = "Fiction", Name = "War and Peace", Price=17m },
+                            new Book { Genre = "Science Fiction", Name = "Escape from the Vortex", Price=19m},
+                            new Book { Genre = "History", Name = "The Battle of the Somme", Price = 22m}
+                        });
+                    _ctx.SaveChanges();
+
+                }
+            }
         }
     }
 }

@@ -30,6 +30,15 @@ namespace MvcUnitTesting_dotnet8.Models
             Context.Set<T>().Remove(entity);
         }
 
+        public void Delete(T Entity)
+        {
+            Context.Set<T>().Remove(Entity);
+        }
+
+        public void Update(T entity)
+        {
+            Context.Set<T>().Update(entity);
+        }
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
             return Context.Set<T>().Where(predicate);

@@ -43,36 +43,6 @@ namespace MvcUnitTesting_dotnet8.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Genre = "Fiction",
-                            Name = "Moby Dick",
-                            Price = 12.50m
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Genre = "Fiction",
-                            Name = "War and Peace",
-                            Price = 17m
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Genre = "Science Fiction",
-                            Name = "Escape from the vortex",
-                            Price = 12.50m
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Genre = "History",
-                            Name = "The Battle of the Somme",
-                            Price = 22m
-                        });
                 });
 #pragma warning restore 612, 618
         }

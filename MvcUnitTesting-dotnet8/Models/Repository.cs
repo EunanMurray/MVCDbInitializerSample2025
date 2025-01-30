@@ -15,7 +15,8 @@ namespace MvcUnitTesting_dotnet8.Models
         
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
-        
+        void Update (T entity);
+        void Delete(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
         

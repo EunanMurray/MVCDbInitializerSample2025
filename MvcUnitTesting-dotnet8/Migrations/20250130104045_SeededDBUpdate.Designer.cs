@@ -11,8 +11,8 @@ using MvcUnitTesting_dotnet8.Models;
 namespace MvcUnitTesting_dotnet8.Migrations
 {
     [DbContext(typeof(BookDbContext))]
-    [Migration("20250122164343_initial-books")]
-    partial class initialbooks
+    [Migration("20250130104045_SeededDBUpdate")]
+    partial class SeededDBUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,36 +46,6 @@ namespace MvcUnitTesting_dotnet8.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Genre = "Fiction",
-                            Name = "Moby Dick",
-                            Price = 12.50m
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Genre = "Fiction",
-                            Name = "War and Peace",
-                            Price = 17m
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Genre = "Science Fiction",
-                            Name = "Escape from the vortex",
-                            Price = 12.50m
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Genre = "History",
-                            Name = "The Battle of the Somme",
-                            Price = 22m
-                        });
                 });
 #pragma warning restore 612, 618
         }
