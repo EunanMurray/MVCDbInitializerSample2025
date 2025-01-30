@@ -18,9 +18,14 @@ namespace MvcUnitTesting_dotnet8.Controllers
             _logger = logger;
         }
         
-        public IActionResult Index()
+        public IActionResult Index(string Genre = null)
         {
             var books = repository.GetAll();
+
+            if (Genre != null)
+            {
+                books = books.Where(b => b.Genre == Genre);
+            }
 
             ViewData["Genre"] = "Fiction";
 
